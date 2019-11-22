@@ -57,6 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>hzxDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Model\Guest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
