@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
     {
         public String [] headerText = { "编号","姓名","邮箱","内容"};
         public Hashtable map = new Hashtable();
+        public DataSet dataSet = new DataSet();
         public String SqlStr = "Server=(local);User Id=hzx;Pwd=hzx;DataBase=hzx";
         public SqlConnection sqlConnection;
         public Form1()
@@ -24,6 +25,13 @@ namespace WindowsFormsApp1
         }
         public void Table_set()
         {
+            foreach(DataGridViewRow dataGridViewRow in dataGridView1.Rows)
+            {
+                if (dataGridViewRow.Index% 2 != 0)
+                {
+                    dataGridView1.Rows[dataGridViewRow.Index].DefaultCellStyle.BackColor = Color.LightSteelBlue;
+                }
+            }
             for (int i = 0; i < headerText.Length; i++)
             {
                 dataGridView1.Columns[i].HeaderText = headerText[i];
@@ -50,7 +58,7 @@ namespace WindowsFormsApp1
                 
                 SqlCommand sqlCommand = new SqlCommand("select * from Guests",sqlConnection);
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataSet dataSet = new DataSet();
+                dataSet.Clear();
                 sqlDataAdapter.Fill(dataSet);
                 dataGridView1.DataSource = dataSet.Tables[0];
                 Table_set();
@@ -69,7 +77,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach(Control control in this.panel3.Controls)
+            
+            foreach (Control control in this.panel3.Controls)
             {
                 
                 if(control is TextBox)
@@ -124,14 +133,8 @@ namespace WindowsFormsApp1
             sqlCommand.Parameters["@textBox3"].Value = textBox3.Text;
             sqlCommand.Parameters["@textBox4"].Value = textBox4.Text;
             sqlCommand.Parameters["@textBox5"].Value = textBox5.Text;
-
-
-
-
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-            DataSet dataSet = new DataSet();
             sqlDataAdapter.Fill(dataSet);
-            
             sqlConnection.Close();
         }
 
@@ -151,7 +154,18 @@ namespace WindowsFormsApp1
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            sqlConnection = new SqlConnection(SqlStr);
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.CommandText = "delete from Guests where Id=@id";
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Parameters.Add("@id",SqlDbType.Int,255);
+            sqlCommand.Parameters["@id"].Value = Convert.ToInt32(dataGridView1.SelectedCells[0].Value);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            sqlDataAdapter.Fill(dataSet);
+            //dataGridView1.DataSource = dataSet.Tables[0];
         }
+
+       
     }
 }
