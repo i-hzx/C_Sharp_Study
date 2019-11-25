@@ -15,13 +15,23 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         public String [] headerText = { "编号","姓名","邮箱","内容"};
+        public Hashtable map = new Hashtable();
         public String SqlStr = "Server=(local);User Id=hzx;Pwd=hzx;DataBase=hzx";
         public SqlConnection sqlConnection;
         public Form1()
         {
             InitializeComponent();
         }
-
+        public void Table_set()
+        {
+            for (int i = 0; i < headerText.Length; i++)
+            {
+                dataGridView1.Columns[i].HeaderText = headerText[i];
+                dataGridView1.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
         private void Button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
@@ -43,13 +53,7 @@ namespace WindowsFormsApp1
                 DataSet dataSet = new DataSet();
                 sqlDataAdapter.Fill(dataSet);
                 dataGridView1.DataSource = dataSet.Tables[0];
-                for (int i = 0; i < headerText.Length; i++)
-                {
-                    dataGridView1.Columns[i].HeaderText = headerText[i];
-                    dataGridView1.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridView1.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                Table_set();
             }
             else
             {
@@ -60,12 +64,19 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+         
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-         
+            foreach(Control control in this.panel3.Controls)
+            {
+                
+                if(control is TextBox)
+                {
+                    map.Add(control.Name, (TextBox)control);
+                }
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -92,6 +103,7 @@ namespace WindowsFormsApp1
                //MessageBox.Show(sqlDataReader[2].ToString());
             }
             dataGridView1.DataSource = list;
+            Table_set();
             //MessageBox.Show(str_read);
             sqlConnection.Close();
         }
@@ -104,11 +116,11 @@ namespace WindowsFormsApp1
             sqlCommand.Connection = sqlConnection;
             sqlCommand.CommandType= CommandType.Text;
             sqlCommand.CommandText = "Insert into Guests values(@textBox2,@textBox3,@textBox4,@textBox5)";
-            sqlCommand.Parameters.Add(new SqlParameter("@textBox2",SqlDbType.Int,255));
+            sqlCommand.Parameters.Add("@textBox2",SqlDbType.Int,255).Value = textBox2.Text; 
             sqlCommand.Parameters.Add(new SqlParameter("@textBox3", SqlDbType.NVarChar, 255));
             sqlCommand.Parameters.Add(new SqlParameter("@textBox4", SqlDbType.NVarChar, 255)); 
             sqlCommand.Parameters.Add(new SqlParameter("@textBox5", SqlDbType.NVarChar, 255));
-            sqlCommand.Parameters["@textBox2"].Value = textBox2.Text;
+            //sqlCommand.Parameters["@textBox2"].Value = textBox2.Text;
             sqlCommand.Parameters["@textBox3"].Value = textBox3.Text;
             sqlCommand.Parameters["@textBox4"].Value = textBox4.Text;
             sqlCommand.Parameters["@textBox5"].Value = textBox5.Text;
@@ -125,7 +137,21 @@ namespace WindowsFormsApp1
 
         private void button9_Click(object sender, EventArgs e)
         {
-            Alert.
+            
+        }
+
+        private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
+             {
+                TextBox t = (TextBox)map["textBox"+(i+2)];             
+                t.Text= dataGridView1.SelectedCells[i].Value.ToString();
+             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
