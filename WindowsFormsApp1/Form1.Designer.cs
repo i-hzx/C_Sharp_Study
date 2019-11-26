@@ -51,6 +51,8 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -199,6 +201,7 @@
             this.button6.TabIndex = 17;
             this.button6.Text = "Update";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -213,6 +216,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.button10);
+            this.panel3.Controls.Add(this.button8);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.label3);
@@ -294,6 +299,26 @@
             this.textBox2.Size = new System.Drawing.Size(114, 21);
             this.textBox2.TabIndex = 19;
             // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button8.Location = new System.Drawing.Point(431, 10);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(63, 23);
+            this.button8.TabIndex = 27;
+            this.button8.Text = "LINQ1";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button10.Location = new System.Drawing.Point(431, 45);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(63, 23);
+            this.button10.TabIndex = 28;
+            this.button10.Text = "LINQ2";
+            this.button10.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -341,6 +366,8 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button8;
     }
 }
 

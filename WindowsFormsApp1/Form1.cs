@@ -72,7 +72,7 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-         
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -166,6 +166,10 @@ namespace WindowsFormsApp1
             //dataGridView1.DataSource = dataSet.Tables[0];
         }
 
-       
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DataTable dataTable = dataSet.Tables[0];
+            //sq
+        }
     }
 }
